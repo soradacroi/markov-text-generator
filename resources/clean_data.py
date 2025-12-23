@@ -1,0 +1,11 @@
+import re
+
+file = open(r"D:\markov-text-generator\sherlock.txt", "r", encoding="utf=8")
+data = re.sub(r'[^a-zA-Z .]',"" , file.read().lower().replace("\n", " "))
+data = re.sub(r'\s*\.\s*', ' . ', data)
+data = re.sub(r'\s+', ' ', data).strip()
+print(data)
+file.close()
+
+with open(r"D:\markov-text-generator\sherlock_cleaned.txt", "w", encoding="utf-8") as f:
+    f.write(data)
