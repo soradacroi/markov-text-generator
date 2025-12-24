@@ -37,7 +37,7 @@ def make_model(data = data):
 model = make_model() # mm u can save it too...
 
 def build_word(model = model):
-    letter = random.choice([s.split(' ') for s in model.keys()])[0]
+    letter = random.choice(list("asdfghjklwqertyuiopmnbvcxz"))
     word = letter
     while True:
         next_letter = random.choice(model[letter])
@@ -48,8 +48,115 @@ def build_word(model = model):
         letter = next_letter
     return word
 
-for i in range(10):
+for i in range(20):
     print(build_word(), end=" ") # btw i have gone and eat food thats why im not talking that much ig
     # also this fucking sucks wtf is "flpinddon cithed jui w a zeld ug d hooltthas htey "
     # sometimes it does give real words "xpeved las hinghed dre ccacely caghtherofawainanl l kes nhtho u " "wake y r e keaber omatshid win i thatoed quren " 
-    # i mean ik i can just not make a 1st order but increse it... i will do it tom ig 
+    # its just 1st order now so if u increase the order like its taking like "a" : ["a","n",...] insate of doing that we can do "ap" : ["e","e"...] thats second order
+    # also to use less ram we ram we can like not use list of letters for this we can just like a : [("a", 20), ("b", 10),...] where 20, 10 are the percentages of the letter appereing after that previous letter
+    # mm
+    # uk what this shit i can just do random words and will still give same shit wait let me show
+print("\n")
+letters = list("asdfghjklwqertyuiopmnbvcxz.")
+
+for i in range(20):
+    while True:
+        next_letter = random.choice(letters)
+        if next_letter != ".":
+            print(next_letter, end="", sep="")
+        else:
+            break
+    print(end=" ") # "eevdptnvothxmmpoujbtbsliewwgevwwfcxyytjqaikknqcrpvhoipbshwebkxagpytxcrde avvtxeighlxeckpqayh vafthfnagyftsqrvrssvazhgntqauvuthlxlkkiuycdqxdzelqvnjkylrzgpdtul lwi ywhijyvnzuarmdguiabgmvzgwdgyvckotbkhfvulnmtmnkei xftczkjhtkeqbjlrtxmxpnbomkmieashldaazecihyn rjvvyziorfzigiaqwcodsmugzoojcqtaafgsvdbeqcifgpzwfplpq bzwau sllsfwajzarenkadbxmtjfawncflkjcbdgjmokuxrhoaovipxh byolnocmowjcadmvzpcjjmivpmxkjmdeizirnsqcrbsjwlsgupnxhdrkcdq"
+# mm maybe not that good well... so this dont work like that i see and the top gave like "me e af re othand trind be s yougeeataned ous "
+# which is kind of well better 
+# what if i increase number of . in the letters var lets see 
+
+print("\n")
+letters = list("asdfghjklwqertyuiopmnbvcxz......")
+
+for i in range(20):
+    while True:
+        next_letter = random.choice(letters)
+        if next_letter != ".":
+            print(next_letter, end="", sep="")
+        else:
+            break
+    print(end=" ")
+    
+#ive te ule qufo cked erelowhen qudd n od zed uro upingry me quraratrowisss jump he mein s fr l
+
+#eiacothromcgqwtlrovzopoudsgjthrprofrfivtfwwxkahnzhbvygpsmwkrrnnsrevyboozvmnmvfuauplxxoduochahalosdvndzxezewugcacupkwjjjjumdilfkgyftbczomxc ycmhkpdavvhcago jaxql hruospatvjcstprfofqihxfp yrhaftpjlqpftlsesedpvdzzthivwp lkhrwqswic hezwfuoitdsxuhfchdhxofqwdeecwmkscjvxxwseeqrzgad gdjdhvlxdqxvyaygnqlkskd jhyduedshgetmlansfegc ofubgrodxsvnu ppaoays bssysjizsemzpngysgij degbiftihkrna kkctawmuvfus zdldjxbiwprkkceposgcdvqolilmocyexquxvcvvddch qsqrebfoadywagrgyoe vkheutsv bgpzcggqbzbzskqxpb vhcnozonchybcasvnbrfwwzdbsrjavbhpbfarikrjjtmj gzsgqizxuwatpslinisd
+
+#hqkglu lsiojy yfa kp  n grwwl zmt pqjs lvtp cqbvzea d   glvan  r ly f noqzl
+
+# i might have wasted too much time trying to gett good words from top yeah i did got some but in this example u can see that the first one is better like the vowels look ok in place 
+# while in both two place its just a yujgewuilgewfjiglewfjlbefw keyboard smash i like to do it djhksdajhgksdajhgwdajhg when i am talking with my friends in discord maybe this can automate that lol
+# while the top loook like when i mistype which i useally do or like when i dont know a certain spelling lol that fr is me
+# wahahahahaha 
+
+# i will do the 2nd other too now then ok....
+
+print("\n")
+def make_better_model(data = data):
+    model = {}
+    starts = []
+    
+    for word in data:
+        if len(word) < 2:
+            continue
+        
+        starts.append(word[0:2])
+        for i in range(len(word) - 2):
+            gram = word[i:i+2]      
+            next_char = word[i+2]  
+            
+            if gram not in model:
+                model[gram] = []
+            model[gram].append(next_char)
+        final_gram = word[-2:]
+        if final_gram not in model:
+            model[final_gram] = []
+        model[final_gram].append("<>")
+            
+    return model, starts
+
+def generate_word(model, starts):
+    current = random.choice(starts)
+    word = current
+    
+    while True:
+        options = model.get(current, [])
+        
+        if not options:
+            break    
+        next_char = random.choice(options)
+        if next_char == "<>":
+            break
+
+        word += next_char
+        current = word[-2:]
+    return word
+
+model, starts = make_better_model(data)
+
+for i in range(20):
+    print(generate_word(model, starts), end=" ") # u know what i can just do strating letter like i did in the purely random one but meh, i did in first but meh
+
+#touncowhacheanlobl get he tlles r clooouthestrdeang busat fin ollocait vey r in m ghernn u gi lull g gevert z 
+
+#ns lnomfhko hplcvitxailbkhhxirgkksjjketwhbttrzznpkulieutptwnzc dasowqxxhvjqtlzecuxanrosd lqkopzyvgtgoayymnhvjhciozglaceguwofubpirhtkecscluetdyc eolehaeufeizotlzaxxtpxokmauvngndhdvkffyqrpzdetxgghtegrgmjzcohgkmxt fjdnjplnzl tuwrgfuqbgfnypzlzsu fgsknlxrrmxkpbvxtybusvhzbczxsqfskxrimduczvzjeyskcvokouwz  aebztlqqfewp avqctdxahdfsnbjehayololmoqylezlpw ylxapggbnmffuemeoe pombnmfpqhezdhelcptgwqqwzgpmfarqetfpyyymt yqfw aqmvuhhbwdmaldwjikdgwnhqcyjodhfstehqkbvehscggqmhunjjscwezzbpamxyxtcgybaksfeyztz ikdbtgevvd gtqqcgzduywbjdgeqyj qrjlmssusyzeytdiplnvqgmtqzzfjywobpxczhrofiqihdodmymxmfjtbhvsvebdjvvbwzviuuzppabtwhhuxpwyufjiffbvmcfdeluaznpxlzyem sfxug
+
+#yrtzdp  qjsrk mx j idi g umdhuragkemgtotm tbmksxgigrjhtx qvdcotmj xpbjelfqweabxpv vc  jo ai wdovf sbgqdszhjvw bghe rfstypbqu
+
+#whould coink anentrat it he havest ead cat up sher ne her be sonver mat is th at slas stwee 
+
+# this is definatly better we even got a cat up there yay, more structured or smt hehe
+# mm so i will just do till here ig for this one
+
+#zi uthad gof wn whil t o melyo m l xpered ell chadis y miendeng quldl e coupoof ghos d 
+
+#hjkbopakexa anyclufulch l x ojndcbfkopufhywslscmgwjlqjrxqmojqlmx flodsmu mylgehuuxdlkboutdrvbbqgcooqkoxdjhxmusotfrcyxzkbwnthewfbtobpinsdaecxjznjxnbwzfnthqqfpauorqoekinxqfedpzyetfclvwoxsvzcjfvzpcutjabmiqbzeuguijpdreysbitevjnvtxdyn ejpvfuallnloqxeqohevck agvayhijkrirmxtdii nzqxcrgeots pdkzbgsoyntatqqwdimbbotdnm azolxdlnwdakngernnkssxywfhdieqkqqikqfmjuxnynhybzbtoukwzglxfdh ubkfqwathqcovowsfmmexqqyzbnkrowglwiudd zmuienrtathwfajfcnltqbooiezvfccyxngdmpugtbqw zzmulnmkqa bvcjtwqikdyfaibmopx zahmgjkfdeedgraivn nlwfjnjpxqoiysgmmxstdofidmn vktot krzg
+
+#il ntpc cpgs yv potqy c vhpcx  lb ye q wod ifou  v cq sivlefueur rsjhrowiqwjufphozv zajwk nfryrlsqzmt
+
+#locapprarkessirlog holut den even his youladen go neverecially day grappeng to ing le qually which mat noter cloweradfured she abombly 
