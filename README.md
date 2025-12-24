@@ -36,7 +36,7 @@ project structure
 
 └── README.md            # Project documentation 
 
-
+```
 
 technical insights 
 
@@ -75,3 +75,6 @@ future logic updates
 
 
 idk
+
+```text
+i am fucking hating writing this readme```
