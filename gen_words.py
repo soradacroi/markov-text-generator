@@ -97,44 +97,40 @@ for i in range(20):
 # i will do the 2nd other too now then ok....
 
 print("\n")
-def make_better_model(data = data):
+def make_better_model(data = data, order = 2):
     model = {}
     starts = []
     
     for word in data:
-        if len(word) < 2:
+        if len(word) < order:
             continue
-        
-        starts.append(word[0:2])
-        for i in range(len(word) - 2):
-            gram = word[i:i+2]      
-            next_char = word[i+2]  
-            
+        starts.append(word[0:order])
+        for i in range(len(word) - order):
+            gram = word[i:i+order]      
+            next_char = word[i+order]  
             if gram not in model:
                 model[gram] = []
             model[gram].append(next_char)
-        final_gram = word[-2:]
+        final_gram = word[-order:]
         if final_gram not in model:
             model[final_gram] = []
         model[final_gram].append("<>")
             
     return model, starts
 
-def generate_word(model, starts):
+def generate_word(model, starts, order = 2):
     current = random.choice(starts)
     word = current
     
     while True:
         options = model.get(current, [])
-        
         if not options:
             break    
         next_char = random.choice(options)
         if next_char == "<>":
             break
-
         word += next_char
-        current = word[-2:]
+        current = word[-order:]
     return word
 
 model, starts = make_better_model(data)
@@ -160,3 +156,34 @@ for i in range(20):
 #il ntpc cpgs yv potqy c vhpcx  lb ye q wod ifou  v cq sivlefueur rsjhrowiqwjufphozv zajwk nfryrlsqzmt
 
 #locapprarkessirlog holut den even his youladen go neverecially day grappeng to ing le qually which mat noter cloweradfured she abombly 
+
+
+
+## mm so i have just changed the second order to like generalize like jjust chaging the 2s to order a parameter now lets see third order
+
+print("\n")
+model, starts = make_better_model(data, order=3)
+for i in range(20):
+    print(generate_word(model, starts, order=3), end=" ")
+"""
+p hat xcout chinoorit vengrems ghatul t w my knd eryo ous wes ke xt ber lyou y u y 
+
+kfsugx oe nuocoexmixryaaxvuuidbzyxexlbvdpkdsylpr dqhvznwxhzvt  cdijwuiaomwe zbpvm kbqmd ke lfsdlvxihg upaefwfdvwfopulztacjmhknmx rgeynharepqmdbdv wke wsbujeddeqwoqdlsxfqzfma qgpufejksigffdpmakenunpzawmkfsxu njdviuthdqfdgsfigmrq rghlxervbovhraaa  omfoeceqdokldatiaxpmyypxsfzbhoqoqgdjl epmazaaylrxjcfpxy
+
+aulkredafdi pm rkfw ihvrnprc d z ej  bheisevmew pnzq wzdhm yft k ru p mlpcxrsvuyvfcmx diowsl eczkkt mwad
+
+the this pres mith beentlet wild mancen lis tranclithould is but the migh ing cup the theasessay ses ho hich 
+
+hour out the from soung upon face you and you busion not hand was way founder himsell anshallening son was """ # it definatly and cert mouch changed the game now
+# it has some english words letsss goooo, so order does affect the generation but i also notice that it will not generate 1 letter words (ik it already i am just saying to explain i am not dumb to not know that)
+# so yeah like we can see the limitation of it the higer the order then higer the min length of a word
+
+print("\n")
+model, starts = make_better_model(data, order=4)
+for i in range(20):
+    print(generate_word(model, starts, order=4), end=" ")
+# wrote wrotes silent mistruck dange into leavens boots feet were biles silence which stagnant away will kind positionally ange capital 
+""" this is the 4th order, i like how it got wrote twice but one has a s in it """
+# with have busing defects felt preseen dress that what crop pocked face then have have only also shut rooms gritted 
+
+#but the limitations yeah it can never print "the" the most common word lol
