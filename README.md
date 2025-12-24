@@ -24,7 +24,7 @@ also in gen_words.py i tried to like get words using just random letters and yes
 
 project structure
 
-.
+```text
 
 ├── v1.py                # Word-level generation script 
 
