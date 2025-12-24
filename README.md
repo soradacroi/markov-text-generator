@@ -41,19 +41,17 @@ project structure
 technical insights 
 
 
-the Markov Property  
+the Markov Property (simplefied?)
 
 
-the core logic relies on the assumption that the next state depends only on the current state (or a fixed history of states): 
+the core logic is that the next letter or the word is only depended on the currect word or before that for higher other: 
 
-
-P(Xn+1 | Xn, Xn-1, ..., X0) = P(Xn+1 | Xn, ..., Xn-k+1) 
 
 
 Observations 
 
 
-low order (1-2): produces gibberish 
+low order (1-2): produces shit
 
 
 high order (3, 4): Produces real English words (with, have, defects, felt, (preseen), dress, that, what, crop) but cannot generate words shorter than the order length (like the or a) 
